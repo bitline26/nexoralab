@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORALAB — 전문가 1:1 무료 상담</title>
+  <meta name="description" content="글로벌 시장 흐름, 전문가에게 직접 물어보세요. 넥소라랩의 1:1 무료 상담으로 맞춤 안내를 받아보세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #040B1E;
+      --bg2:       #0A1228;
+      --bg3:       #0F1A35;
+      --accent:    #3071EE;
+      --accent2:   #3179FF;
+      --accent-g:  linear-gradient(180deg, #3179FF 0%, #1450C8 100%);
+      --text:      #FFFFFF;
+      --text2:     #7A849D;
+      --text3:     #EAECEE;
+      --border:    #1D2741;
+      --card-bg:   #0B1530;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 24px;
+      --max-w:     1280px;
+      --nav-h:     64px;
+      --font:      'Inter', 'Pretendard', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+      height: var(--nav-h);
+      background: rgba(4, 11, 30, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 700; letter-spacing: 0.08em;
+      background: var(--accent-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 400; color: var(--text3);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 22px;
+      font-size: 14px; font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer; border: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-primary {
+      background: var(--accent-g);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(48,113,238,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(48,113,238,0.5);
+    }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 8px; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(48,113,238,0.5);
+      color: var(--accent2);
+    }
+    .btn-outline:hover { background: rgba(48,113,238,0.08); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text3); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: flex; align-items: center;
+      background: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      padding: 80px 0;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: rgba(48,113,238,0.12);
+      border: 1px solid rgba(48,113,238,0.3);
+      border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: var(--accent2);
+      margin-bottom: 24px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .hero h1 {
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 700; line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(88deg, #3071EE, #00B4FF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px; font-weight: 400; color: var(--text2);
+      line-height: 1.75; margin-bottom: 40px;
+    }
+    .hero-cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-note { font-size: 13px; color: var(--text2); }
+    .hero-note strong { color: var(--text3); }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card-main {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,4,31,0.5);
+    }
+    .hcard-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .hcard-chart {
+      display: flex; align-items: flex-end; gap: 6px; height: 100px; margin-bottom: 20px;
+    }
+    .hcard-bar {
+      flex: 1; border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, rgba(48,113,238,0.7) 0%, rgba(48,113,238,0.2) 100%);
+      transition: 0.3s;
+    }
+    .hcard-bar.active {
+      background: linear-gradient(180deg, #3179FF 0%, rgba(48,113,238,0.4) 100%);
+      box-shadow: 0 0 16px rgba(49,121,255,0.4);
+    }
+    .hcard-stat-row { display: flex; justify-content: space-between; align-items: center; }
+    .hcard-stat { font-size: 24px; font-weight: 700; }
+    .hcard-stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .hcard-up { color: #22C55E; font-size: 13px; font-weight: 600; }
+    .hero-float {
+      position: absolute;
+      background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px rgba(0,4,31,0.4);
+    }
+    .hero-float.f1 { top: 10%; right: -20px; }
+    .hero-float.f2 { bottom: 15%; left: -20px; }
+    .hf-row { display: flex; align-items: center; gap: 10px; }
+    .hf-icon { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,#3071EE,#00B4FF); display:flex;align-items:center;justify-content:center; font-size:14px; }
+    .hf-text { font-size: 13px; font-weight: 600; }
+    .hf-sub { font-size: 11px; color: var(--text2); }
+
+    /* BG glow */
+    .bg-glow {
+      position: absolute; border-radius: 50%;
+      filter: blur(120px); pointer-events: none; opacity: 0.15;
+    }
+    .bg-glow.g1 { width: 500px; height: 500px; background: #3071EE; top: 10%; left: -100px; }
+    .bg-glow.g2 { width: 400px; height: 400px; background: #00B4FF; top: 20%; right: -80px; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; text-align: center;
+    }
+    .stat-item { padding: 0 32px; }
+    .stat-item + .stat-item { border-left: 1px solid var(--border); }
+    .stat-num {
+      font-size: clamp(32px, 4vw, 48px); font-weight: 700;
+      background: var(--accent-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-desc { font-size: 14px; color: var(--text2); margin-top: 4px; }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 96px 0; }
+    .section-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(48,113,238,0.12);
+      border: 1px solid rgba(48,113,238,0.25);
+      border-radius: 100px;
+      font-size: 12px; font-weight: 600; color: var(--accent2);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text2); max-width: 560px;
+    }
+    .section-head { margin-bottom: 56px; }
+    .section-head.center { text-align: center; }
+    .section-head.center .section-sub { margin: 0 auto; }
+
+    /* ── FEATURES ── */
+    .features { background: var(--bg); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .feat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .feat-card:hover { border-color: rgba(48,113,238,0.4); transform: translateY(-4px); }
+    .feat-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(48,113,238,0.2), rgba(0,180,255,0.1));
+      border: 1px solid rgba(48,113,238,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 24px;
+    }
+    .feat-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .feat-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    /* ── STEPS ── */
+    .steps { background: var(--bg2); }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+    .steps-grid::before {
+      content: ''; position: absolute;
+      top: 32px; left: calc(16.66% + 24px); right: calc(16.66% + 24px);
+      height: 1px; background: linear-gradient(90deg, var(--accent), rgba(48,113,238,0.2));
+    }
+    .step-item { padding: 0 32px; text-align: center; }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--accent-g);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 0 8px rgba(48,113,238,0.1), 0 0 0 16px rgba(48,113,238,0.05);
+    }
+    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .step-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    /* ── FORM SECTION ── */
+    .form-section { background: var(--bg); }
+    .form-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .form-left .section-sub { margin-bottom: 32px; }
+    .form-trust { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .trust-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text2); }
+    .trust-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .form-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+    .form-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 28px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text3); margin-bottom: 8px; }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      font-size: 14px; color: var(--text); font-family: var(--font);
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group select option { background: var(--bg2); }
+    .form-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%;
+      background: var(--accent-g);
+      color: #fff; border: none;
+      padding: 15px; font-size: 16px; font-weight: 700;
+      border-radius: 8px; cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(48,113,238,0.4);
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(48,113,238,0.55); }
+    .form-privacy { font-size: 12px; color: var(--text2); text-align: center; margin-top: 14px; }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success .check { font-size: 48px; margin-bottom: 16px; }
+    .form-success h4 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: var(--text2); }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--bg2); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .review-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+    }
+    .review-stars { color: #F59E0B; font-size: 16px; margin-bottom: 16px; letter-spacing: 2px; }
+    .review-text { font-size: 15px; line-height: 1.7; color: var(--text3); margin-bottom: 20px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #00B4FF);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+    }
+    .review-name { font-size: 14px; font-weight: 600; }
+    .review-info { font-size: 12px; color: var(--text2); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(88deg, #0B277D 0%, #0633BB 50%, #024EB7 100%);
+      padding: 80px 0;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cta-inner { position: relative; text-align: center; }
+    .cta-inner h2 { font-size: clamp(26px, 4vw, 44px); font-weight: 700; margin-bottom: 16px; }
+    .cta-inner p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
+    .cta-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020711;
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1fr auto; gap: 48px;
+      padding-bottom: 32px; margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-logo { font-size: 18px; font-weight: 700; letter-spacing: 0.08em; color: #fff; margin-bottom: 12px; }
+    .footer-tagline { font-size: 13px; color: var(--text2); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 13px; color: var(--text2); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text3); }
+    .footer-bottom { display: flex; flex-direction: column; gap: 8px; }
+    .biz-info { font-size: 12px; color: #4B5563; line-height: 1.8; }
+    .disclaimer {
+      font-size: 11px; color: #374151;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-top: 8px; line-height: 1.6;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #1a2744; border: 1px solid var(--accent);
+      border-radius: var(--radius-md); padding: 16px 24px;
+      font-size: 14px; color: var(--text3);
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(4,11,30,0.98);
+        padding: 24px; gap: 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; padding: 48px 0 64px; }
+      .hero-visual { display: none; }
+      .stats-grid { grid-template-columns: 1fr; gap: 32px; }
+      .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 32px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+      .steps-grid::before { display: none; }
+      .form-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+      .form-grid2 { grid-template-columns: 1fr; }
+      section { padding: 64px 0; }
+      .cta-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">NEXORALAB</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features">서비스 소개</a></li>
+      <li><a href="#reviews">상담 후기</a></li>
+      <li><a href="#form">상담 신청</a></li>
+      <li><a href="#form" class="btn btn-primary" style="padding:8px 18px;font-size:13px;">무료 상담 신청</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="bg-glow g1"></div>
+  <div class="bg-glow g2"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div class="hero-left">
+        <div class="hero-badge"><span></span> 전문가 1:1 무료 상담 운영 중</div>
+        <h1>시장 흐름,<br /><span class="accent">전문가에게</span><br />직접 물어보세요</h1>
+        <p class="hero-sub">혼자 고민하지 마세요.<br />전문가가 1:1로 무료 안내해 드립니다.</p>
+        <div class="hero-cta-row">
+          <a href="#form" class="btn btn-primary btn-lg">지금 무료 상담 신청하기</a>
+          <a href="#features" class="btn btn-outline btn-lg">서비스 알아보기</a>
+        </div>
+        <p class="hero-note" style="margin-top:20px;"><strong>가입비·월정액 없음</strong> · 완전 무료 상담</p>
+      </div>
+      <!-- Right visual -->
+      <div class="hero-visual">
+        <div style="position:relative;">
+          <div class="hero-card-main">
+            <div class="hcard-label">글로벌 시장 분석 현황</div>
+            <div class="hcard-chart">
+              <div class="hcard-bar" style="height:40%"></div>
+              <div class="hcard-bar" style="height:55%"></div>
+              <div class="hcard-bar" style="height:35%"></div>
+              <div class="hcard-bar" style="height:70%"></div>
+              <div class="hcard-bar" style="height:50%"></div>
+              <div class="hcard-bar active" style="height:85%"></div>
+              <div class="hcard-bar" style="height:65%"></div>
+              <div class="hcard-bar active" style="height:90%"></div>
+            </div>
+            <div class="hcard-stat-row">
+              <div>
+                <div class="hcard-stat">1,200+</div>
+                <div class="hcard-stat-label">누적 상담 건수</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="hcard-up">▲ 상담 만족도 98%</div>
+                <div class="hcard-stat-label">24시간 이내 연결</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-float f1">
+            <div class="hf-row">
+              <div class="hf-icon">📊</div>
+              <div>
+                <div class="hf-text">전담 전문가 배정</div>
+                <div class="hf-sub">신청 즉시 매칭</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-float f2">
+            <div class="hf-row">
+              <div class="hf-icon">✅</div>
+              <div>
+                <div class="hf-text">무료 상담 완료</div>
+                <div class="hf-sub">방금 전 연결됨</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num" id="cnt1">0</div>
+        <div class="stat-desc">누적 상담 건수</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="cnt2">0%</div>
+        <div class="stat-desc">상담 만족도</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="cnt3">0시간</div>
+        <div class="stat-desc">이내 전문가 연결</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-tag">서비스 특징</div>
+      <h2 class="section-title">넥소라랩이 다른 이유</h2>
+      <p class="section-sub">복잡한 시장 흐름, 혼자 읽지 않아도 됩니다. 전문가가 바로 옆에 있습니다.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">👤</div>
+        <div class="feat-title">전문가 1:1 직접 상담</div>
+        <p class="feat-desc">담당 전문가가 직접 연락드립니다. 일반적인 안내가 아닌, 나의 상황에 맞춘 맞춤 안내를 받아보세요.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">24시간 이내 연결</div>
+        <p class="feat-desc">신청 즉시 전담 전문가가 배정됩니다. 빠르게 연락드려 시간을 낭비하지 않습니다.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎁</div>
+        <div class="feat-title">완전 무료</div>
+        <p class="feat-desc">가입비, 월정액, 수수료 없습니다. 첫 상담은 100% 무료로 진행됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEPS ── -->
+<section class="steps">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-tag">이용 방법</div>
+      <h2 class="section-title">3단계로 끝납니다</h2>
+      <p class="section-sub">복잡한 절차 없이, 신청서 하나로 전문가와 연결됩니다.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-title">무료 상담 신청서 작성</div>
+        <p class="step-desc">이름과 연락처만 입력하면 됩니다. 1분도 걸리지 않습니다.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-title">전담 전문가 배정 및 연락</div>
+        <p class="step-desc">전담 전문가가 직접 전화 또는 카카오톡으로 연락드립니다.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-title">1:1 맞춤 안내 시작</div>
+        <p class="step-desc">나의 상황과 목표에 맞는 맞춤형 안내를 받아보세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM ── -->
+<section class="form-section" id="form">
+  <div class="container">
+    <div class="form-wrap">
+      <div class="form-left">
+        <div class="section-tag">무료 상담 신청</div>
+        <h2 class="section-title">지금 바로<br />전문가와 연결하세요</h2>
+        <p class="section-sub">복잡한 시장 흐름, 혼자 분석하지 않아도 됩니다.<br />전문가가 직접 안내해 드립니다.</p>
+        <div class="form-trust">
+          <div class="trust-item"><div class="trust-dot"></div>신청 후 24시간 이내 연락</div>
+          <div class="trust-item"><div class="trust-dot"></div>완전 무료, 부담 없는 상담</div>
+          <div class="trust-item"><div class="trust-dot"></div>개인정보 철저 보호</div>
+          <div class="trust-item"><div class="trust-dot"></div>전화 또는 카카오톡으로 연결</div>
+        </div>
+      </div>
+      <div class="form-right">
+        <div class="form-box">
+          <h3>무료 상담 신청 📋</h3>
+          <div id="formContent">
+            <form id="consultForm" onsubmit="submitForm(event)">
+              <div class="form-group">
+                <label>이름 *</label>
+                <input type="text" id="name" placeholder="홍길동" required />
+              </div>
+              <div class="form-group">
+                <label>연락처 *</label>
+                <input type="tel" id="phone" placeholder="010-0000-0000" required />
+              </div>
+              <div class="form-grid2">
+                <div class="form-group">
+                  <label>관심 분야</label>
+                  <select id="interest">
+                    <option value="">선택해주세요</option>
+                    <option value="시장 입문">시장 입문</option>
+                    <option value="방향 설정">방향 설정</option>
+                    <option value="리스크 관리">리스크 관리</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>연락 가능 시간</label>
+                  <select id="contactTime">
+                    <option value="">선택해주세요</option>
+                    <option value="오전">오전 (9~12시)</option>
+                    <option value="오후">오후 (12~18시)</option>
+                    <option value="저녁">저녁 (18~22시)</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="form-submit" id="submitBtn">상담 신청하기</button>
+              <p class="form-privacy">제출하시면 <a href="privacy.html" style="color:var(--accent2)" target="_blank">개인정보처리방침</a>에 동의하는 것으로 간주됩니다.</p>
+            </form>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <div class="check">✅</div>
+            <h4>신청이 완료되었습니다!</h4>
+            <p>빠른 시일 내 전문가가 직접 연락드리겠습니다.<br/>감사합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-tag">상담 후기</div>
+      <h2 class="section-title">직접 경험한 분들의 이야기</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"전문가 상담 받고 방향이 잡혔어요. 혼자 인터넷 뒤지던 시간이 아까울 정도로 명쾌하게 설명해 주셨습니다."</p>
+        <div class="review-author">
+          <div class="review-avatar">K</div>
+          <div>
+            <div class="review-name">김○○</div>
+            <div class="review-info">30대 · 직장인</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"혼자 할 때보다 훨씬 체계적이에요. 어디서 시작해야 할지 몰랐는데 전문가가 단계별로 안내해줘서 좋았습니다."</p>
+        <div class="review-author">
+          <div class="review-avatar">P</div>
+          <div>
+            <div class="review-name">박○○</div>
+            <div class="review-info">40대 · 자영업자</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"처음이어도 쉽게 설명해 주셨어요. 어려운 용어 없이 눈높이에 맞게 안내해 주셔서 이해가 잘 됐습니다."</p>
+        <div class="review-author">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-name">이○○</div>
+            <div class="review-info">20대 · 대학생</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ── -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>지금 바로 전문가와 연결하세요</h2>
+      <p>1,200명 이상이 선택한 넥소라랩의 무료 상담 서비스</p>
+      <div class="cta-row">
+        <a href="#form" class="btn btn-primary btn-lg" style="background:#fff;color:#1450C8;box-shadow:0 4px 24px rgba(0,0,0,0.2);">무료 상담 신청하기</a>
+        <span style="font-size:14px;color:rgba(255,255,255,0.6);">완전 무료 · 부담 없음</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">NEXORALAB</div>
+        <div class="footer-tagline">글로벌 시장 정보 제공 · 전문가 상담 연결 플랫폼</div>
+      </div>
+      <div class="footer-links">
+        <a href="#features">서비스 소개</a>
+        <a href="#reviews">상담 후기</a>
+        <a href="#form">상담 신청</a>
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="biz-info">
+        주식회사 트리컴퍼니 &nbsp;|&nbsp; 사업자등록번호: 243-88-01448 &nbsp;|&nbsp; 대표: 신원종<br />
+        서울특별시 중랑구 용마산로 421, 3층 &nbsp;|&nbsp; © 2025 NEXORALAB. All rights reserved.
+      </div>
+      <div class="disclaimer">
+        본 서비스는 정보 제공 및 전문가 상담 연결을 목적으로 하며, 투자 권유 또는 투자 자문에 해당하지 않습니다.
+        모든 상담 내용은 정보 제공 목적이며 투자 결과에 대한 책임은 이용자 본인에게 있습니다.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Google Apps Script URL (배포 후 아래 URL 교체)
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+  // ── 햄버거 메뉴
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ── 숫자 카운트업 애니메이션
+  function countUp(id, target, suffix, duration) {
+    const el = document.getElementById(id);
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = Math.floor(start).toLocaleString() + suffix;
+    }, 16);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp('cnt1', 1200, '+', 1500);
+        countUp('cnt2', 98, '%', 1200);
+        countUp('cnt3', 24, '시간', 1000);
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  statsObserver.observe(document.querySelector('.stats-bar'));
+
+  // ── 토스트
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // ── 폼 제출
+  async function submitForm(e) {
+    e.preventDefault();
+    const name  = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const interest   = document.getElementById('interest').value;
+    const contactTime = document.getElementById('contactTime').value;
+
+    if (!name || !phone) { showToast('이름과 연락처를 입력해 주세요.'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = '전송 중...'; btn.disabled = true;
+
+    const params = new URLSearchParams({
+      full_name:    name,
+      phone_number: phone,
+      interest:     interest,
+      contact_time: contactTime,
+      source:       'nexoralab',
+    });
+
+    try {
+      if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+        // 개발 중 테스트용 — 실제 전송 없이 성공 처리
+        await new Promise(r => setTimeout(r, 800));
+        showSuccess();
+        return;
+      }
+      const res = await fetch(APPS_SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+      showSuccess();
+    } catch (err) {
+      showSuccess(); // no-cors 모드에서는 에러 무시하고 성공 처리
+    } finally {
+      btn.textContent = '상담 신청하기'; btn.disabled = false;
+    }
+  }
+
+  function showSuccess() {
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    showToast('신청이 완료되었습니다! 빠른 시일 내 연락드리겠습니다.');
+  }
+
+  // ── 스크롤 네브바 그림자
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(0,0,0,0.4)' : 'none';
+  });
+
+  // ── 전화번호 자동 하이픈
+  document.getElementById('phone').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length <= 3) this.value = v;
+    else if (v.length <= 7) this.value = v.slice(0,3) + '-' + v.slice(3);
+    else this.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
+  });
+
+  // ── 카드 페이드인 애니메이션
+  const cards = document.querySelectorAll('.feat-card, .review-card, .step-item');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, i * 100);
+        cardObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => {
+    c.style.opacity = '0'; c.style.transform = 'translateY(24px)';
+    c.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.25s';
+    cardObserver.observe(c);
+  });
+</script>
+</body>
+</html>

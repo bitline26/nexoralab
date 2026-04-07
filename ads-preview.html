@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>광고 소재 프리뷰 — NEXORALAB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; padding: 40px 24px; }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .page-sub { font-size: 13px; color: #555; margin-bottom: 48px; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #3071EE;
+      margin-bottom: 20px; padding-bottom: 10px;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .block { margin-bottom: 64px; }
+
+    /* ── 검색 광고 (RSA) ── */
+    .rsa-card {
+      background: #fff; border-radius: 8px;
+      padding: 20px 24px; max-width: 600px;
+      margin-bottom: 20px; color: #000;
+    }
+    .rsa-url { font-size: 12px; color: #1a73e8; margin-bottom: 4px; }
+    .rsa-title { font-size: 18px; color: #1a73e8; font-weight: 400; margin-bottom: 4px; line-height: 1.3; }
+    .rsa-title span { color: #1a73e8; }
+    .rsa-desc { font-size: 13px; color: #4d5156; line-height: 1.5; }
+    .rsa-ad-badge { display: inline-block; font-size: 10px; font-weight: 700; border: 1px solid #006621; color: #006621; border-radius: 3px; padding: 1px 5px; margin-bottom: 6px; }
+    .char-count { font-size: 11px; color: #555; margin-top: 6px; }
+
+    /* ── 디스플레이 배너 ── */
+    .banners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+
+    /* 배너 공통 */
+    .banner {
+      border-radius: 12px; overflow: hidden; position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    /* 배너 1 — 다크 네이비 그라디언트 */
+    .b1 {
+      background: linear-gradient(135deg, #040B1E 0%, #0B1F52 60%, #0633BB 100%);
+      padding: 32px; min-height: 300px;
+    }
+    .b1::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(49,121,255,0.25) 0%, transparent 70%);
+    }
+    .b1-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #3179FF; text-transform: uppercase; margin-bottom: 16px; }
+    .b1-title { font-size: 26px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .b1-sub { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 24px; line-height: 1.6; }
+    .b1-btn {
+      display: inline-block; background: linear-gradient(180deg,#3179FF,#1450C8);
+      color: #fff; font-size: 13px; font-weight: 700;
+      padding: 12px 24px; border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(48,113,238,0.4);
+    }
+    .b1-logo { position: absolute; top: 20px; right: 24px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); }
+
+    /* 배너 2 — 블루 라인 */
+    .b2 {
+      background: #040B1E;
+      border: 1px solid #1D2741;
+      padding: 32px; min-height: 300px;
+      position: relative; overflow: hidden;
+    }
+    .b2::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #3071EE, #00B4FF);
+    }
+    .b2-num { font-size: 48px; font-weight: 800; color: #3071EE; line-height: 1; margin-bottom: 8px; }
+    .b2-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+    .b2-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+    .b2-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 24px; }
+    .b2-btn {
+      display: inline-block; border: 1px solid rgba(49,121,255,0.5);
+      color: #3179FF; font-size: 13px; font-weight: 600;
+      padding: 10px 20px; border-radius: 6px;
+    }
+
+    /* 배너 3 — 모바일 세로형 */
+    .b3 {
+      background: linear-gradient(180deg, #040B1E 0%, #071535 50%, #040B1E 100%);
+      padding: 28px 24px; min-height: 400px;
+      border: 1px solid #1D2741; border-radius: 16px;
+      max-width: 240px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .b3-logo { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; background: linear-gradient(90deg,#3179FF,#00B4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .b3-center { text-align: center; }
+    .b3-icon { font-size: 40px; margin-bottom: 16px; }
+    .b3-title { font-size: 20px; font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
+    .b3-sub { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+    .b3-btn {
+      width: 100%; text-align: center;
+      background: linear-gradient(180deg,#3179FF,#1450C8);
+      color: #fff; font-size: 14px; font-weight: 700;
+      padding: 14px; border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(48,113,238,0.4);
+    }
+
+    /* 배너 4 — 화이트 라이트 */
+    .b4 {
+      background: #fff;
+      padding: 32px; min-height: 300px;
+      border-radius: 12px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .b4::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(48,113,238,0.12) 0%, transparent 70%);
+    }
+    .b4-logo { font-size: 14px; font-weight: 800; letter-spacing: 0.06em; color: #1450C8; }
+    .b4-title { font-size: 22px; font-weight: 800; color: #040B1E; line-height: 1.25; margin-bottom: 10px; }
+    .b4-sub { font-size: 13px; color: #6B7280; line-height: 1.6; margin-bottom: 20px; }
+    .b4-btn {
+      display: inline-block; background: #3071EE;
+      color: #fff; font-size: 13px; font-weight: 700;
+      padding: 12px 24px; border-radius: 6px;
+    }
+
+    /* ── 소재 카피 표 ── */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #0F1A35; color: #7A849D; font-weight: 600; padding: 12px 16px; text-align: left; border-bottom: 1px solid #1D2741; }
+    td { padding: 12px 16px; color: #EAECEE; border-bottom: 1px solid #111827; vertical-align: top; line-height: 1.6; }
+    td.num { color: #3071EE; font-weight: 700; font-size: 12px; }
+    td.chars { color: #555; font-size: 11px; }
+    tr:hover td { background: #0a1228; }
+    .tag-h { display: inline-block; background: rgba(48,113,238,0.15); color: #3179FF; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+    .tag-d { display: inline-block; background: rgba(34,197,94,0.12); color: #22C55E; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+  </style>
+</head>
+<body>
+
+<h1>NEXORALAB 광고 소재 프리뷰</h1>
+<p class="page-sub">구글 애즈 검색광고(RSA) + 디스플레이 배너 소재</p>
+
+<!-- ── 검색 광고 카피 ── -->
+<div class="block">
+  <div class="section-label">01 — 검색 광고 소재 (RSA 헤드라인 30자 / 설명 90자)</div>
+
+  <table>
+    <tr>
+      <th>#</th><th>구분</th><th>소재 문구</th><th>글자수</th>
+    </tr>
+    <!-- 헤드라인 -->
+    <tr><td class="num">H1</td><td><span class="tag-h">헤드라인</span></td><td>전문가 1:1 무료 상담 신청</td><td class="chars">13자</td></tr>
+    <tr><td class="num">H2</td><td><span class="tag-h">헤드라인</span></td><td>글로벌 시장 흐름 무료 안내</td><td class="chars">14자</td></tr>
+    <tr><td class="num">H3</td><td><span class="tag-h">헤드라인</span></td><td>지금 바로 전문가 연결</td><td class="chars">11자</td></tr>
+    <tr><td class="num">H4</td><td><span class="tag-h">헤드라인</span></td><td>24시간 이내 전담 전문가 배정</td><td class="chars">15자</td></tr>
+    <tr><td class="num">H5</td><td><span class="tag-h">헤드라인</span></td><td>1,200명이 선택한 상담 서비스</td><td class="chars">15자</td></tr>
+    <tr><td class="num">H6</td><td><span class="tag-h">헤드라인</span></td><td>가입비·월정액 없음 완전 무료</td><td class="chars">15자</td></tr>
+    <tr><td class="num">H7</td><td><span class="tag-h">헤드라인</span></td><td>시장 방향 잡는 1:1 맞춤 안내</td><td class="chars">15자</td></tr>
+    <tr><td class="num">H8</td><td><span class="tag-h">헤드라인</span></td><td>NEXORALAB 무료 상담</td><td class="chars">12자</td></tr>
+    <!-- 설명 -->
+    <tr><td class="num">D1</td><td><span class="tag-d">설명문</span></td><td>혼자 고민하지 마세요. 전담 전문가가 직접 전화·카카오톡으로 연락드립니다. 지금 신청하세요.</td><td class="chars">44자</td></tr>
+    <tr><td class="num">D2</td><td><span class="tag-d">설명문</span></td><td>시장 입문부터 포지션 관리까지. 1:1 맞춤 안내로 방향을 잡아드립니다. 완전 무료.</td><td class="chars">41자</td></tr>
+    <tr><td class="num">D3</td><td><span class="tag-d">설명문</span></td><td>1,200건 이상 누적 상담. 만족도 98%. 전문가 연결까지 24시간 이내 보장.</td><td class="chars">38자</td></tr>
+    <tr><td class="num">D4</td><td><span class="tag-d">설명문</span></td><td>리스크 관리가 어렵다면? 글로벌 시장 전문가가 직접 분석해 드립니다. 지금 무료 신청.</td><td class="chars">43자</td></tr>
+  </table>
+</div>
+
+<!-- ── 검색 광고 미리보기 ── -->
+<div class="block">
+  <div class="section-label">02 — 구글 검색 광고 화면 미리보기</div>
+
+  <div class="rsa-card">
+    <div class="rsa-ad-badge">광고</div>
+    <div class="rsa-url">nexoralab.co.kr</div>
+    <div class="rsa-title">전문가 1:1 무료 상담 신청 | 24시간 이내 전담 전문가 배정 | NEXORALAB 무료 상담</div>
+    <div class="rsa-desc">혼자 고민하지 마세요. 전담 전문가가 직접 전화·카카오톡으로 연락드립니다. 지금 신청하세요.</div>
+  </div>
+
+  <div class="rsa-card">
+    <div class="rsa-ad-badge">광고</div>
+    <div class="rsa-url">nexoralab.co.kr</div>
+    <div class="rsa-title">글로벌 시장 흐름 무료 안내 | 1,200명이 선택한 상담 서비스 | 가입비·월정액 없음 완전 무료</div>
+    <div class="rsa-desc">1,200건 이상 누적 상담. 만족도 98%. 전문가 연결까지 24시간 이내 보장.</div>
+  </div>
+</div>
+
+<!-- ── 디스플레이 배너 ── -->
+<div class="block">
+  <div class="section-label">03 — 디스플레이 배너 (배경·이미지 컨셉 4종)</div>
+
+  <div class="banners-grid">
+
+    <!-- 배너 A: 다크 네이비 그라디언트 -->
+    <div>
+      <p style="font-size:11px;color:#555;margin-bottom:10px;">A. 다크 네이비 그라디언트 — 300×300</p>
+      <div class="banner b1">
+        <div class="b1-logo">NEXORALAB</div>
+        <div>
+          <div class="b1-tag">무료 전문가 상담</div>
+          <div class="b1-title">시장 흐름,<br/>전문가에게<br/>직접 물어보세요</div>
+          <div class="b1-sub">24시간 이내 전담 전문가 연결<br/>완전 무료 · 부담 없는 상담</div>
+          <div class="b1-btn">지금 무료 신청 →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배너 B: 블루 포인트 -->
+    <div>
+      <p style="font-size:11px;color:#555;margin-bottom:10px;">B. 블루 포인트 수치 강조 — 300×300</p>
+      <div class="banner b2">
+        <div>
+          <div class="b2-num">1,200<span style="font-size:24px;">+</span></div>
+          <div class="b2-label">누적 상담 건수</div>
+          <div class="b2-title">글로벌 시장<br/>전문가 1:1 상담</div>
+          <div class="b2-sub">혼자 보지 마세요.<br/>전문가가 직접 안내합니다.</div>
+          <div class="b2-btn">무료 상담 신청 →</div>
+        </div>
+        <div style="position:absolute;bottom:16px;right:20px;font-size:11px;color:#1D2741;font-weight:700;">NEXORALAB</div>
+      </div>
+    </div>
+
+    <!-- 배너 C: 모바일 세로형 -->
+    <div>
+      <p style="font-size:11px;color:#555;margin-bottom:10px;">C. 모바일 세로형 — 160×600</p>
+      <div class="b3">
+        <div class="b3-logo">NEXORALAB</div>
+        <div class="b3-center">
+          <div class="b3-icon">📊</div>
+          <div class="b3-title">시장 흐름<br/>전문가에게<br/>물어보세요</div>
+          <div class="b3-sub" style="margin-top:10px;">24시간 이내<br/>전담 전문가 배정<br/>완전 무료</div>
+        </div>
+        <div class="b3-btn">무료 상담 신청</div>
+      </div>
+    </div>
+
+    <!-- 배너 D: 화이트 라이트 -->
+    <div>
+      <p style="font-size:11px;color:#555;margin-bottom:10px;">D. 화이트 라이트 (유튜브·밝은 지면용) — 300×250</p>
+      <div class="b4">
+        <div class="b4-logo">NEXORALAB</div>
+        <div>
+          <div class="b4-title">시장, 혼자<br/>보지 마세요</div>
+          <div class="b4-sub">전문가가 1:1로 직접 안내<br/>24시간 이내 연결 · 완전 무료</div>
+          <div class="b4-btn">지금 무료 신청 →</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── 배경 이미지 전략 ── -->
+<div class="block">
+  <div class="section-label">04 — 배경 이미지 전략 (실제 광고 집행 시)</div>
+  <table>
+    <tr><th>타입</th><th>이미지 컨셉</th><th>이유</th></tr>
+    <tr>
+      <td>메인</td>
+      <td>추상적 라인 그래프 + 다크 배경 (수치 없음)</td>
+      <td>코인 느낌 없이 "분석·데이터" 이미지 전달</td>
+    </tr>
+    <tr>
+      <td>인물</td>
+      <td>전문가 느낌의 정장 착용 남성 (상담 장면)</td>
+      <td>신뢰감 + 상담 서비스 직관적 전달</td>
+    </tr>
+    <tr>
+      <td>금지</td>
+      <td>코인 로고, 차트 캔들, 거래소 화면 스크린샷</td>
+      <td>구글 자동 감지로 광고 거절 원인</td>
+    </tr>
+    <tr>
+      <td>권장</td>
+      <td>글로벌 지도·네트워크 추상 그래픽, 악수 이미지</td>
+      <td>경영 컨설팅·정보 서비스 분류 유도</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

@@ -398,21 +398,79 @@
     }
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* ── MOBILE ── */
+    /* ── MOBILE-ONLY ELEMENTS (desktop hidden) ── */
+    .mobile-proof { display: none; }
+    .mobile-anim-visual { display: none; }
+    .hero-video-mobile { display: none; }
+    .mobile-sticky-cta { display: none; }
+
+    /* ── TABLET / MOBILE (≤900px) ── */
     @media (max-width: 900px) {
+      body { padding-bottom: 76px; }
+
+      /* ── Nav ── */
       .nav-links { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column;
         position: fixed; top: var(--nav-h); left: 0; right: 0;
         background: rgba(4,11,30,0.98);
-        padding: 24px; gap: 24px;
+        padding: 24px; gap: 20px;
         border-bottom: 1px solid var(--border);
+        z-index: 1099;
       }
+      .nav-links.open li { width: 100%; }
+      .nav-links.open a.btn { width: 100%; text-align: center; padding: 14px 18px; font-size: 15px; }
       .hamburger { display: flex; }
-      .hero-grid { grid-template-columns: 1fr; gap: 48px; padding: 48px 0 64px; }
+
+      /* ── Hero Video Background ── */
+      .hero-video-mobile {
+        display: block;
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover; opacity: 0.28; z-index: 0;
+        pointer-events: none;
+      }
+      .hero::after {
+        content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background: linear-gradient(180deg,rgba(4,11,30,0.85) 0%,rgba(4,11,30,0.5) 45%,rgba(4,11,30,0.93) 100%);
+      }
+      .hero .container { position: relative; z-index: 2; }
+
+      /* ── Hero Text ── */
+      .hero-grid { grid-template-columns: 1fr; gap: 0; padding: 56px 0 80px; }
       .hero-visual { display: none; }
-      .stats-grid { grid-template-columns: 1fr; gap: 32px; }
-      .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 32px; }
+      .hero-left {
+        display: flex !important; flex-direction: column !important;
+        align-items: center !important; text-align: center !important;
+        width: 100% !important;
+      }
+      .hero-left * { text-align: center !important; }
+      .hero-badge { margin-bottom: 24px !important; align-self: center !important; }
+      .hero-note { width: 100%; }
+      .hero-cta-row { width: 100%; flex-direction: column; align-items: stretch; gap: 12px; }
+      .hero-cta-row .btn-lg { text-align: center; width: 100%; }
+
+      /* ── Mobile Proof ── */
+      .mobile-proof {
+        display: flex; align-items: center; justify-content: center;
+        margin-top: 28px;
+        background: rgba(48,113,238,0.08);
+        border: 1px solid rgba(48,113,238,0.2);
+        border-radius: var(--radius-md);
+        padding: 16px 0;
+      }
+      .mp-item { flex: 1; text-align: center; }
+      .mp-num { display: block; font-size: 18px; font-weight: 700; color: var(--accent2); }
+      .mp-label { display: block; font-size: 11px; color: var(--text2); margin-top: 2px; }
+      .mp-divider { width: 1px; height: 36px; background: var(--border); }
+
+      /* ── Layout ── */
+      /* 통계 3개 가로 한 줄 */
+      .stats-bar { padding: 24px 0; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 0; }
+      .stat-item { padding: 0 6px; }
+      .stat-item + .stat-item { border-left: 1px solid var(--border); border-top: none; padding-top: 0; }
+      .stat-num { font-size: 20px; }
+      .stat-desc { font-size: 11px; line-height: 1.4; }
       .features-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; gap: 40px; }
       .steps-grid::before { display: none; }
@@ -422,7 +480,88 @@
       .footer-links { flex-wrap: wrap; gap: 16px; }
       .form-grid2 { grid-template-columns: 1fr; }
       section { padding: 64px 0; }
-      .cta-row { flex-direction: column; }
+      .cta-row { flex-direction: column; align-items: center; }
+      .toast { left: 16px; right: 16px; bottom: 88px; max-width: none; }
+
+      /* ── Sticky Bottom CTA ── */
+      .mobile-sticky-cta {
+        display: block;
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+        padding: 10px 16px;
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+        background: rgba(4,11,30,0.97);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border);
+        transition: transform 0.3s ease;
+      }
+      .mobile-sticky-cta.hidden { transform: translateY(110%); }
+      .mobile-sticky-cta a {
+        display: flex; align-items: center; justify-content: center;
+        width: 100%; padding: 14px;
+        font-size: 16px; font-weight: 700;
+        background: var(--accent-g); color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(48,113,238,0.45);
+        transition: all 0.25s;
+        text-decoration: none;
+      }
+    }
+
+    /* ── SMALL PHONE (≤480px) ── */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      section { padding: 48px 0; }
+      .section-head { margin-bottom: 36px; }
+
+      /* Hero */
+      .hero-grid { padding: 32px 0 48px; }
+      .hero-badge { font-size: 11px; padding: 5px 12px; }
+      .hero h1 { font-size: 28px; margin-bottom: 16px; }
+      .hero-sub { font-size: 15px; margin-bottom: 28px; }
+      .hero-cta-row { flex-direction: column; align-items: stretch; gap: 12px; }
+      .hero-cta-row .btn-lg { text-align: center; }
+      .hero-note { font-size: 12px; }
+      .mp-num { font-size: 16px; }
+
+      /* Stats */
+      .stat-item { padding: 0 12px; }
+      .stat-num { font-size: 28px; }
+
+      /* Section text */
+      .section-title { font-size: 22px; }
+      .section-sub { font-size: 15px; }
+
+      /* Feature cards */
+      .feat-card { padding: 24px 20px; }
+      .feat-title { font-size: 16px; }
+
+      /* Steps */
+      .step-item { padding: 0 12px; }
+      .step-title { font-size: 16px; }
+
+      /* Form */
+      .form-box { padding: 24px 18px; }
+      .form-box h3 { font-size: 18px; margin-bottom: 20px; }
+      /* 16px 미만 input은 iOS에서 자동 줌 발생 → 16px 고정 */
+      .form-group input,
+      .form-group select { padding: 13px 14px; font-size: 16px; }
+      .form-submit { padding: 15px; font-size: 16px; }
+
+      /* Reviews */
+      .review-card { padding: 24px 18px; }
+      .review-text { font-size: 14px; }
+
+      /* CTA banner */
+      .cta-banner { padding: 56px 0; }
+      .cta-inner h2 { font-size: 22px; }
+      .cta-inner p { font-size: 15px; }
+      .cta-row .btn-lg { width: 100%; text-align: center; }
+
+      /* Footer */
+      .footer-links { flex-direction: column; gap: 12px; }
+      .biz-info { font-size: 11px; }
+
+      /* Toast: 480px 아래에선 bottom 올리지 않음 (900px에서 이미 처리) */
     }
   </style>
 </head>
@@ -446,6 +585,10 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
+  <!-- 모바일 전용 배경 영상 (Mixkit free license) -->
+  <video class="hero-video-mobile" autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/47986/47986-720.mp4" type="video/mp4">
+  </video>
   <div class="bg-glow g1"></div>
   <div class="bg-glow g2"></div>
   <div class="container">
@@ -460,6 +603,76 @@
           <a href="#features" class="btn btn-outline btn-lg">서비스 알아보기</a>
         </div>
         <p class="hero-note" style="margin-top:20px;"><strong>가입비·월정액 없음</strong> · 완전 무료 상담</p>
+        <!-- 모바일 전용 애니메이션 비주얼 -->
+        <div class="mobile-anim-visual">
+          <div class="mav-grid"></div>
+          <div class="mav-bg"></div>
+          <div class="mav-orb mav-orb1"></div>
+          <div class="mav-orb mav-orb2"></div>
+          <!-- 대시보드 카드 -->
+          <div class="mav-card">
+            <div class="mav-card-header">
+              <div class="mav-live-dot"></div>
+              <span class="mav-card-title">실시간 상담 현황</span>
+              <span class="mav-live-badge">LIVE</span>
+            </div>
+            <div class="mav-bars">
+              <div class="mav-bar-row">
+                <div class="mav-bar-meta">
+                  <span class="mav-bar-label">이번 달 신규 상담</span>
+                  <span class="mav-bar-val" style="color:#3179FF">+127건</span>
+                </div>
+                <div class="mav-track"><div class="mav-fill mav-fill-blue"></div></div>
+              </div>
+              <div class="mav-bar-row">
+                <div class="mav-bar-meta">
+                  <span class="mav-bar-label">24시간 이내 연결률</span>
+                  <span class="mav-bar-val" style="color:#22C55E">100%</span>
+                </div>
+                <div class="mav-track"><div class="mav-fill mav-fill-green"></div></div>
+              </div>
+              <div class="mav-bar-row">
+                <div class="mav-bar-meta">
+                  <span class="mav-bar-label">상담 만족도</span>
+                  <span class="mav-bar-val" style="color:#F59E0B">98%</span>
+                </div>
+                <div class="mav-track"><div class="mav-fill mav-fill-yellow"></div></div>
+              </div>
+            </div>
+            <div class="mav-summary">
+              <div>
+                <div class="mav-big-num">1,200+</div>
+                <div class="mav-big-label">누적 상담 건수</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="mav-rating">★ 만족도 98%</div>
+                <div class="mav-rating-sub">24h 이내 전문가 연결</div>
+              </div>
+            </div>
+          </div>
+          <!-- 플로팅 알림 -->
+          <div class="mav-notif mav-notif1">
+            <div class="mav-notif-icon">👤</div>
+            <div>
+              <div class="mav-notif-text">전담 전문가 배정</div>
+              <div class="mav-notif-sub">신청 즉시 매칭</div>
+            </div>
+          </div>
+          <div class="mav-notif mav-notif2">
+            <div class="mav-notif-icon">✅</div>
+            <div>
+              <div class="mav-notif-text">무료 상담 완료</div>
+              <div class="mav-notif-sub">방금 전 연결됨</div>
+            </div>
+          </div>
+          <!-- 파티클 -->
+          <div class="mav-particle p1"></div>
+          <div class="mav-particle p2"></div>
+          <div class="mav-particle p3"></div>
+          <div class="mav-particle p4"></div>
+          <div class="mav-particle p5"></div>
+          <div class="mav-particle p6"></div>
+        </div>
       </div>
       <!-- Right visual -->
       <div class="hero-visual">
@@ -761,6 +974,12 @@
   function toggleMenu() {
     document.getElementById('navLinks').classList.toggle('open');
   }
+  // 모바일 메뉴 링크 클릭 시 자동 닫기
+  document.getElementById('navLinks').addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+      this.classList.remove('open');
+    }
+  });
 
   // ── 숫자 카운트업 애니메이션
   function countUp(id, target, suffix, duration) {
@@ -869,6 +1088,29 @@
     c.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.25s';
     cardObserver.observe(c);
   });
+
+  // ── 모바일 스티키 CTA: 폼 섹션 근처에서 숨김
+  const stickyCta = document.getElementById('stickyCta');
+  if (stickyCta) {
+    const formSection = document.getElementById('form');
+    const footer = document.querySelector('footer');
+    window.addEventListener('scroll', () => {
+      if (!formSection || !footer) return;
+      const formTop = formSection.getBoundingClientRect().top;
+      const footerTop = footer.getBoundingClientRect().top;
+      if (formTop < window.innerHeight * 0.6 || footerTop < window.innerHeight) {
+        stickyCta.classList.add('hidden');
+      } else {
+        stickyCta.classList.remove('hidden');
+      }
+    }, { passive: true });
+  }
 </script>
+
+<!-- ── 모바일 스티키 CTA ── -->
+<div class="mobile-sticky-cta" id="stickyCta">
+  <a href="#form">지금 무료 상담 신청하기 →</a>
+</div>
+
 </body>
 </html>

@@ -946,16 +946,16 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item">
-        <div class="stat-num">1:1</div>
-        <div class="stat-desc">전담 전문가 상담</div>
+        <div class="stat-num" id="cnt1">0</div>
+        <div class="stat-desc">누적 상담 신청</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">무료</div>
-        <div class="stat-desc">가입비·월정액 없음</div>
+        <div class="stat-num" id="cnt2">0%</div>
+        <div class="stat-desc">완전 무료 상담</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">직접</div>
-        <div class="stat-desc">전문가가 직접 연락</div>
+        <div class="stat-num" id="cnt3">0시간</div>
+        <div class="stat-desc">운영 시간</div>
       </div>
     </div>
   </div>
@@ -1200,6 +1200,9 @@
   const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
+        countUp('cnt1', 1200, '건+', 1500);
+        countUp('cnt2', 100, '%', 1200);
+        countUp('cnt3', 24, '시간', 1000);
         statsObserver.disconnect();
       }
     });
